@@ -20,7 +20,7 @@ for line in sys.stdin:
     count+=1
 
 if current_key is not None:
-    output.append(f"{current_key}\t{count}\n")
+    output.append(f"{current_key}\t{count}")
 
 key_dict = {char: idx for idx, char in enumerate(key_list)}
 def sortKey(string):
