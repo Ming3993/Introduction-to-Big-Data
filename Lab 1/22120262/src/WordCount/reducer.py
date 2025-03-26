@@ -13,7 +13,7 @@ for line in sys.stdin:
 
     if key != current_key:
         if current_key is not None:
-            output.append(f"{current_key}\t{count}\n")
+            output.append(f"{current_key}\t{count}")
         current_key = key
         count = 0
     
