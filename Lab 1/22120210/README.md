@@ -51,7 +51,7 @@ m       23464
 u       23225
 s       42412
 ```
-Save as result.txt file:
+Save as results.txt file:
 ```bash
 $ hdfs dfs -cat /word_count/output/part-00000 >> /mnt/win10_linked/results.txt
 ```
