@@ -7,14 +7,14 @@ $ cd 22120210/22120405/src/WordCount/WordCount
 ## Step 2: Install Maven 
 This tutorial guides through the installation on Ubuntu 22.04
 ```bash
-$ apt install maven -y
+$ sudo apt install maven -y
 ```
 
 ## Step 3: Build the the project
 ```bash
 $ mvn install
 ```
-The project jar file is now in target/ folder. The file name is WordCount-1.0-SNAPSHOT.jar
+The project jar file is now in target/ folder. The file name is WordCount-1.0-SNAPSHOT.jar.
 
 ## Step 4: Put the words.txt into HDFS
 ```bash
