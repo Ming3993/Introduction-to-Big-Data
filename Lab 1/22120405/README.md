@@ -1,4 +1,4 @@
-# How to run source code
+# How to run WordCount source code
 ## Step 1: Change directory to the source code folder, e.g. 22120210/22120405/src/WordCount/WordCount
 ```bash
 $ cd 22120210/22120405/src/WordCount/WordCount
