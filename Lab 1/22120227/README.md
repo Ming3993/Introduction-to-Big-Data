@@ -37,7 +37,7 @@ This command searches the filesystem for the JAR file and suppresses permission 
 Ensure you have Hadoop set up and running, then execute the following command:
 
 ```sh
-hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-3.3.6.jar -files <path_to_local_mapper>/Mapper.py,<path_to_local_reducer>/Reducer.py -input /WordCount/input/words.txt -output /hcmus/<StudentID>/output -mapper "python3 Mapper.py" -reducer "python3 Reducer.py"
+hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-3.3.6.jar -files <path_to_local_mapper>/Mapper.py,<path_to_local_reducer>/Reducer.py -input /WordCount/input/words.txt -output /WordCount/output -mapper "python3 Mapper.py" -reducer "python3 Reducer.py"
 ```
 
 **Clean output (If rerun)**
