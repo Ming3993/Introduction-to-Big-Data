@@ -19,20 +19,26 @@ public class WordCountMapper extends Mapper<Object, Text, Text, IntWritable> {
 
     @Override
     protected void map(Object key, Text value, Context context) throws IOException, InterruptedException {
-        String wordCheck = value.toString(); // Extract to Java built-in's String
-        if (!wordCheck.matches("^[a-zA-Z]+$")) // Check if the word contains only the alphabets using regex
-            return;
+        String line = value.toString(); // Extract to Java built-in's String
 
-        // Get the first character
-        // Make it lowercase as the task is counting case-insensitive word
-        String startingChar = String.valueOf(wordCheck.charAt(0)).toLowerCase();
+        // Split the line based on non-alphabetic character
+        String[] words = line.split("[^A-Za-z]+");
 
-        // Eliminate words with unaccepted starting character
-        if (!acceptedStartingChar.contains(startingChar))
-            return;
+        for (String word : words) {
+            if (word.isEmpty())
+                continue;
 
-        // Set output for the next steps
-        keySent.set(startingChar);
-        context.write(keySent, valueSent);
+            // Get the first character
+            // Make it lowercase as the task is counting case-insensitive line
+            String startingChar = String.valueOf(word.charAt(0)).toLowerCase();
+
+            // Eliminate words with unaccepted starting character
+            if (!acceptedStartingChar.contains(startingChar))
+                continue;
+
+            // Set output for the next steps
+            keySent.set(startingChar);
+            context.write(keySent, valueSent);
+        }
     }
 }
