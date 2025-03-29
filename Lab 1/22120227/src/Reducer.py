@@ -1,27 +1,27 @@
 import sys
 
-# Khởi tạo từ điển để lưu kết quả
+# Initialize a dictionary to store results
 letter_count = {}
 
-# Đọc từng dòng từ input (Mapper output)
+# Read input line by line (Mapper output)
 for line in sys.stdin:
-    # Tách dữ liệu ra (chữ cái và số đếm)
+    # Split the data (letter and count)
     try:
         letter, count = line.strip().split("\t")
         count = int(count)
     except ValueError:
-        continue  # Bỏ qua dòng lỗi
+        continue # Skip invalid lines
     
-    # Cộng dồn số lần xuất hiện của từng chữ cái
+    # Accumulate occurrences of each letter
     if letter in letter_count:
         letter_count[letter] += count
     else: 
         letter_count[letter] = count
     
-# Danh sách các chữ cái yêu cầu
+# List of target letters
 target_letters = ['a', 'f', 'j', 'g', 'h', 'c', 'm', 'u', 's']  
 
-# In kết quả
+# Print final results
 for letter in target_letters:
     if letter in letter_count:
         print(f"{letter}\t{letter_count[letter]}")

@@ -1,18 +1,18 @@
 import sys
 import re
 
-# Danh sách các chữ cái cần đếm
+# List of target letters to count
 target_letters = ['a', 'f', 'j', 'g', 'h', 'c', 'm', 'u', 's']
 
-# Đọc từng dòng từ input (words.txt)
+# Read input line by line (from words.txt)
 for line in sys.stdin:
-    # Tách các từ, bao gồm cả việc tách từ có ký tự đặc biệt
-    words = re.findall(r'[a-zA-Z]+', line)  # Chỉ lấy các phần có chữ cái
+    # Split words, also separating words with special characters
+    words = re.findall(r'[a-zA-Z]+', line) # Extract only alphabetic sequences
 
-    # Lặp qua từng từ
+    # Iterate through each word
     for word in words:
-        first_letter = word[0].lower()  # Lấy chữ cái đầu tiên và chuyển về chữ thường
+        first_letter = word[0].lower() # Get the first letter and convert it to lowercase
 
-        # Kiểm tra chữ cái đầu tiên có trong danh sách target_letters
+        # Check if the first letter is in the target_letters list
         if first_letter in target_letters:
-            print(f"{first_letter}\t1")  # Xuất ra dạng "chữ cái đầu \t 1" để truyền sang Reducer
+            print(f"{first_letter}\t1")  # Output format: "first letter \t 1" for the Reducer
