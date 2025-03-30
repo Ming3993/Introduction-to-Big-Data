@@ -1,6 +1,10 @@
 # How to run the Hadoop Streaming Job
 ## Step 1: Local testing before running with Hadoop Streaming (Optional)
 ```bash
+$ cat /path/to/your/input/file | python3 /path/to/your/mapper.py | python3 /path/to/your/reducer.py
+```
+Example command:
+```bash
 $ cat /mnt/win10_linked/words.txt | python3 /mnt/win10_linked/mapper.py | python3 /mnt/win10_linked/reducer.py
 ```
 ## Step 2: Create a directory on HDFS to store resources of this lab
@@ -9,9 +13,13 @@ $ hdfs dfs -mkdir /word_count
 ```
 ## Step 3: Upload the input file on HDFS
 ```bash
+$ hdfs dfs -put /path/to/your/input/file /word_count
+```
+Example command:
+```bash
 $ hdfs dfs -put /mnt/win10_linked/words.txt /word_count
 ```
-Verify the upload
+Then, verify the upload
 ```bash
 $ hdfs dfs -ls /word_count
 ```
@@ -33,8 +41,21 @@ Example output:
 ```
 ## Step 5: Run the Hadoop Streaming Job
 ```bash
-$ hadoop jar /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-3.3.6.jar -input /word_count/words.txt -output /word_count/output -mapper "python3 /mnt/win10_linked/mapper.py" -reducer "python3 /mnt/win10_linked/reducer.py"
+$ hadoop jar /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-3.3.6.jar 
+-input /path/to/your/input/file 
+-output /word_count/output 
+-mapper "python3 /path/to/your/mapper.py" 
+-reducer "python3 path/to/your/reducer.py"
 ```
+Example command:
+```bash
+$ hadoop jar /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-3.3.6.jar 
+-input /word_count/words.txt 
+-output /word_count/output 
+-mapper "python3 /mnt/win10_linked/mapper.py" 
+-reducer "python3 /mnt/win10_linked/reducer.py"
+```
+**Note:** Before running the command, the directory "/word_count/output" must not exist; otherwise, errors will occur.
 ## Step 6: View the output file:
 ```bash
 $ hdfs dfs -cat /word_count/output/part-00000
@@ -52,6 +73,10 @@ u       23225
 s       42412
 ```
 Save as results.txt file:
+```bash
+$ hdfs dfs -cat /word_count/output/part-00000 >> /your/desired/output/path
+```
+Example command:
 ```bash
 $ hdfs dfs -cat /word_count/output/part-00000 >> /mnt/win10_linked/results.txt
 ```
