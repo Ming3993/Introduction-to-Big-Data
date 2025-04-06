@@ -1,31 +1,39 @@
 from mrjob.job import MRJob
 from mrjob.step import MRStep
+from mrjob.protocol import TextValueProtocol
 import csv
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # Convert string to datetime object
 def convert_to_date(date_str):
     return datetime.strptime(date_str, "%d/%m/%Y")
 
 class MRRevenueCalculating(MRJob):
+    # Format the output to write into a .csv file
+    OUTPUT_PROTOCOL = TextValueProtocol
+
+    # Define step for MapReduce programme
     def steps(self):
         return [
             MRStep(mapper=self.mapper_parse,
                    reducer=self.reducer_revenue),
             MRStep(reducer=self.reducer_last_3)
         ]
+        
     def mapper_parse(self, _, line):
         try:
             row = next(csv.reader([line.strip()]))
-
+            
+            # Skip the header row
             if row[0].lower() == "index":
                 return
 
             date_str = row[2]
             status = row[3]
             category = row[9]
-            amount = row[15]
+            amount = float(row[15])
 
+            # Skip entries with status "cancelled"
             if status.lower() == "cancelled":
                 return
 
@@ -41,14 +49,17 @@ class MRRevenueCalculating(MRJob):
             if not date:
                 return
 
-            formatted_date = date.strftime('%d/%m/%Y')
-            yield (formatted_date, category), float(amount)
+            # Yield revenue for the current day and the next two days
+            for _ in range(3):
+                formatted_date = date.strftime('%d/%m/%Y')
+                yield (formatted_date, category), amount
+                date = date + timedelta(days=1)
 
         except Exception:
-            pass  # Skip lines with errors
+            pass  # Skip lines with parsing errors
 
     def reducer_revenue(self, key, values):
-        # Merge all data to and assign with key None
+        # Aggregate revenue by date and category, yield with key None
         date_str, category = key
         total_revenue = sum(values)
         yield None, (date_str, category, total_revenue)
@@ -63,23 +74,15 @@ class MRRevenueCalculating(MRJob):
             for date_str, category, revenue in all_data
         ]
 
-        # Sort by date (Descending)
-        all_data_with_datetime.sort(key=lambda x: x[0], reverse=True)
-        
-        cnt = 0
+        # Sort data by date (descending) and then by category name
+        all_data_with_datetime.sort(key=lambda x: (x[0], x[1].lower()))
 
-        # Get the last 3 dates
-        for i in range(len(all_data_with_datetime) - 1):
-            yesterday, _, _ = all_data_with_datetime[i + 1]
-            date_obj, category, revenue = all_data_with_datetime[i]
-            if yesterday != date_obj:
-                if cnt == 2:
-                    break
-                else:
-                    cnt += 1
+        # Yield formatted output
+        yield None,"report_date,category,revenue"
+        for date_obj, category, revenue in all_data_with_datetime:
             formatted_date = date_obj.strftime('%d/%m/%Y')
-            yield (formatted_date, category), revenue
-        
+            yield None,f"{formatted_date},{category},{revenue:.2f}"
+
 
 if __name__ == '__main__':
     MRRevenueCalculating.run()
