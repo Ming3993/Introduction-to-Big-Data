@@ -34,7 +34,7 @@ class MRRevenueCalculating(MRJob):
             amount = float(row[15])
 
             # Skip entries with status "cancelled"
-            if status.lower() == "cancelled":
+            if status.lower() in ["cancelled", "pending"]:
                 return
 
             # Parse date
