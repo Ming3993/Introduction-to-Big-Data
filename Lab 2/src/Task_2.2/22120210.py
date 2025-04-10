@@ -8,7 +8,7 @@ import shutil
 spark = SparkSession.builder.appName("Lab2_Task2.2").getOrCreate()
 
 # Read data from CSV with header
-df = spark.read.option("header", "true").csv("asr.csv")
+df = spark.read.option("header", "true").csv("Datasets/asr.csv")
 
 # Filter rows where 'Status' contains 'shipped' (case-insensitive)
 df = df.filter(lower(col("Status")).contains("shipped"))
@@ -57,7 +57,7 @@ result.coalesce(1).write.mode("overwrite").option("header", True).csv("temp_outp
 # Rename the generated part-* file to output.csv
 for filename in os.listdir("temp_output"):
     if filename.startswith("part-") and filename.endswith(".csv"):
-        os.rename(f"temp_output/{filename}", "output.csv")
+        os.rename(f"temp_output/{filename}", "src/Task_2.2/output.csv")
         break
 
 # Clean up temporary directory
