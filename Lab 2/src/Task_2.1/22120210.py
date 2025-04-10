@@ -74,7 +74,7 @@ class MRRevenueCalculating(MRJob):
             for date_str, category, revenue in all_data
         ]
 
-        # Sort data by date (descending) and then by category name
+        # Sort data by date (ascending) and then by category name
         all_data_with_datetime.sort(key=lambda x: (x[0], x[1].lower()))
 
         # Yield formatted output
