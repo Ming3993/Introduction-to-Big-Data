@@ -13,7 +13,7 @@ df = spark.read.parquet("hdfs://localhost:9000/hcmus/lab2/shapes.parquet") # Usi
 # To ensure two adjacent points create an edge
 def sortVertices(arr):
     # Sort by y coordination first
-    ySorted = sorted(arr, key = lambda pair: pair[1])
+    ySorted = sorted(arr, key = lambda pair: pair[1], reverse=True)
 
     yTop = ySorted[:2] # Two top points
     yBottom = ySorted[2:] # Two bottom points
