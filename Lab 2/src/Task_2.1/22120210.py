@@ -75,7 +75,7 @@ class MRRevenueCalculating(MRJob):
         ]
 
         # Sort data by date (ascending) and then by category name
-        all_data_with_datetime.sort(key=lambda x: (x[0], x[1].lower()))
+        all_data_with_datetime.sort(key=lambda x: (x[0], x[1]))
 
         # Yield formatted output
         yield None,"report_date,category,revenue"
