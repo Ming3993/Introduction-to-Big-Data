@@ -91,3 +91,4 @@ Expected folder structure:
 ├── ...
 └── requirements.txt
 ```
+The "Verification" folder contains the assignments, but from a different perspective. You can open the notebook and select the virtual environment created earlier to run these files. The idea is presented in the report.
