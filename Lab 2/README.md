@@ -34,8 +34,7 @@ Upload files to HDFS.
 ```bash
 hdfs dfs -put Datasets/{asr.csv,shapes.parquet} /hcmus/lab2
 ```
-## Task 2.1: Run your MapReduce job 
-### Method 1: With a Python interpreter on local machine
+## Task 2.1: Run your MapReduce job with a Python interpreter on local machine
 ```bash
 python src/Task_2.1/22120210.py Datasets/asr.csv > src/Task_2.1/output.csv
 ```
