@@ -58,9 +58,12 @@ print(f"F1 Score: {result['f1_score']}")
 
 # Write out the predictions to file system
 output_name = "classification_results"
-output_rdd = test_rdd_predictions.map(lambda x: ",".join([str(i) for i in x]))
-output_rdd_header = spark.sparkContext.parallelize([f"Features, True Label, Prediction Label"] + output_rdd.collect())
-output_rdd_header.saveAsTextFile(f"{output_name}")  # Save the predictions to a text file
+output_header = "V1,V2,V3,V4,V5,V6,V7,V8,V9,V10,V11,V12,V13,V14,V15,V16,V17,V18,V19,V20,V21,V22,V23,V24,V25,V26,V27,V28,Amount,True Label,Prediction Label"
+formatted_output_rdd = test_rdd_predictions.map(lambda x: x[0][:-1] + x[1:]) \
+                                           .map(lambda x: ",".join([str(i) for i in x])) \
+                                           .map(lambda x: x.replace("[", "").replace("]", "").replace("'", ""))  # Format the output
+final_output_rdd = spark.sparkContext.parallelize([output_header]).union(formatted_output_rdd)
+final_output_rdd.saveAsTextFile(f"{output_name}")
 
 # Stop the Spark session
 spark.stop()
