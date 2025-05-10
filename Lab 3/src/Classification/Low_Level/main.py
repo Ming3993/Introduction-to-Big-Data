@@ -6,7 +6,6 @@ from pyspark.sql import SparkSession
 # Create a Spark session
 spark = SparkSession.builder \
         .appName("Logistic Regression Low Level") \
-        .config("spark.hadoop.fs.defaultFS", "hdfs://localhost:9000") \
         .master("local[*]") \
         .getOrCreate()
 
@@ -14,7 +13,7 @@ spark = SparkSession.builder \
 spark.sparkContext.setLogLevel("WARN")
 
 # Load the data
-rdd = spark.sparkContext.textFile(f"hdfs:///creditcard.csv")  # Load the data from HDFS
+rdd = spark.sparkContext.textFile(f"hdfs://localhost:9000/creditcard.csv")  # Load the data from HDFS
 
 # Format the data
 header = rdd.first()  # Extract the header
@@ -35,8 +34,8 @@ train_rdd_normalized = normalizer.fit(train_rdd).transform(train_rdd)  # Transfo
 
 # Train the model
 learning_rate = 0.001
-num_iterations = 500
-batch_size = 2024
+num_iterations = 200
+batch_size = 2048
 threshold = 0.5
 regression = LogisticRegression(learning_rate=learning_rate, 
                                 num_iterations=num_iterations, 
@@ -56,6 +55,12 @@ print(f"Accuracy: {result['accuracy']}")
 print(f"Precision: {result['precision']}")
 print(f"Recall: {result['recall']}")
 print(f"F1 Score: {result['f1_score']}")
+
+# Write out the predictions to file system
+output_name = "classification_results"
+output_rdd = test_rdd_predictions.map(lambda x: ",".join([str(i) for i in x]))
+output_rdd_header = spark.sparkContext.parallelize([f"Features, True Label, Prediction Label"] + output_rdd.collect())
+output_rdd_header.saveAsTextFile(f"{output_name}")  # Save the predictions to a text file
 
 # Stop the Spark session
 spark.stop()
