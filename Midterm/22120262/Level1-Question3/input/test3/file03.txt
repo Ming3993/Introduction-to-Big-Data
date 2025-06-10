@@ -1,0 +1,5 @@
+t13	oranges  
+t14	grapes  
+t15	pears  
+t16	peaches  
+t17	bananas  

@@ -1,0 +1,6 @@
+FoodPrice Mango 12
+FoodPrice Papaya 7
+FoodPrice Kiwi 4
+FoodQuantity Mango 5
+FoodQuantity Orange 8
+FoodQuantity Papaya 3

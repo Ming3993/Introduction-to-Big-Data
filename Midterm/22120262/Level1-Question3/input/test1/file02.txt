@@ -1,0 +1,5 @@
+t06	eggs  
+t07	chicken wings  
+t08	milk bottle  
+t09	soda  
+t10	squid steak  

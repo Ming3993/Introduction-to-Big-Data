@@ -1,0 +1,6 @@
+FoodPrice Orange 9
+FoodQuantity Kiwi 2
+FoodQuantity Strawberry 6
+FoodPrice Strawberry 11
+FoodPrice Blueberry 14
+FoodQuantity Blueberry 4

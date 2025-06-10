@@ -1,0 +1,5 @@
+t01	cereal  
+t02	cookies  
+t03	soda  
+t04	cereal  
+t05	yogurt  

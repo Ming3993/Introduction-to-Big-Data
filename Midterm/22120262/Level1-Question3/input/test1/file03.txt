@@ -1,0 +1,5 @@
+t11	eggs  
+t12	milk bottle  
+t13	soda  
+t14	potato chips  
+t15	squid steak  

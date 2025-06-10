@@ -1,0 +1,5 @@
+t11	cereal  
+t12	juice  
+t13	cheese  
+t14	cookies  
+t15	yogurt  

@@ -1,0 +1,4 @@
+FoodQuantity Pineapple 6
+FoodQuantity Papaya 8
+FoodPrice Pear 3
+FoodQuantity Tomato 4

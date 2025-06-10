@@ -1,0 +1,3 @@
+FoodPrice B 5
+FoodQuantity A 6
+FoodQuantity C 7

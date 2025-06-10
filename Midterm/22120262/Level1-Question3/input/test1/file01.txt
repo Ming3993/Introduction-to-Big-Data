@@ -1,0 +1,5 @@
+t01	eggs  
+t02	milk bottle  
+t03	squid steak  
+t04	chicken wings  
+t05	potato chips  

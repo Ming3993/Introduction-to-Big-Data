@@ -1,0 +1,4 @@
+FoodPrice Date 8
+FoodQuantity Apple 15
+FoodQuantity Cherry 0
+FoodPrice Elderberry 9

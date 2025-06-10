@@ -1,0 +1,6 @@
+FoodPrice Grape 5
+FoodQuantity Grape 9
+FoodQuantity Watermelon 7
+FoodPrice Watermelon 10
+FoodPrice Pineapple 13
+FoodQuantity Pear 2

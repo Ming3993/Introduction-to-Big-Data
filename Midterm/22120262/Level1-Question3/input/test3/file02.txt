@@ -1,0 +1,6 @@
+t07	apples  
+t08	oranges  
+t09	mangoes  
+t10	grapes  
+t11	apples  
+t12	mangoes  

@@ -1,0 +1,4 @@
+FoodPrice A 1
+FoodPrice A 2
+FoodQuantity A 3
+FoodQuantity B 4

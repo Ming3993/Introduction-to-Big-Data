@@ -1,0 +1,5 @@
+t06	juice  
+t07	soda  
+t08	cookies  
+t09	cheese  
+t10	juice  
