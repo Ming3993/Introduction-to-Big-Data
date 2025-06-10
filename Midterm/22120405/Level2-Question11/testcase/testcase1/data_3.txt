@@ -1,0 +1,10 @@
+FoodQuantity Salmon 3
+FoodPrice Sausage 6
+FoodQuantity Ketchup 10
+FoodPrice Pickles 3
+FoodQuantity Bacon 8
+FoodPrice Relish 2
+FoodPrice Pancake 5
+FoodQuantity Jam 3
+FoodQuantity Duck 2
+FoodPrice Ham 10

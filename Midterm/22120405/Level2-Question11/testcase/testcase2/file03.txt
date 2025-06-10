@@ -1,0 +1,11 @@
+FoodPrice SpringRolls 8
+FoodPrice Omelette 8
+FoodQuantity Fajita 4
+FoodQuantity Churros 9
+FoodQuantity Lasagna 3
+FoodPrice Taco 4
+FoodPrice Couscous 11
+FoodQuantity Enchilada 5
+FoodPrice CornishPasty 8
+FoodPrice Dumplings 10
+FoodPrice Churros 6

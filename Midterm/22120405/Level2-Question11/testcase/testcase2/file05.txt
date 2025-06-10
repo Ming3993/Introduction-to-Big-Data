@@ -1,0 +1,6 @@
+FoodPrice ShepardPie 13
+FoodQuantity Kebab 5
+FoodQuantity Dumplings 6
+FoodPrice Naan 3
+FoodPrice Milkshake 6
+FoodQuantity Chimichanga 3
