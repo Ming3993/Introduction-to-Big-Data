@@ -21,6 +21,9 @@ class WordCountJob(MRJob):
             yield "__total__", 1
         except:
             pass
-
+        
+    def combiner(self, key, values):
+        yield key, sum(values)
+        
     def reducer(self, key, values):
         yield key, sum(values)

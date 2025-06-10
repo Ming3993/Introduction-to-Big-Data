@@ -3,8 +3,7 @@ import json
 from word_count import WordCountJob
 from itertools import combinations
 from collections import defaultdict
-from total_transaction import MRApriori
-from extract_unique import ExtractUniqueItemsJob
+from get_itemset import GetItemSet
 
 class AprioriRunner:
     def __init__(self, datafile, min_support):
@@ -15,16 +14,8 @@ class AprioriRunner:
         self.frequent_itemsets = set()
         self.global_frequent = dict()
 
-    def count_total_transactions(self):
-        job = MRApriori(args=[self.datafile])
-        with job.make_runner() as runner:
-            runner.run()
-            for key, value in job.parse_output(runner.cat_output()):
-                if key == '__total__':
-                    self.total_transactions = value
-
     def get_unique_items(self):
-        job = ExtractUniqueItemsJob(args=[self.datafile])
+        job = GetItemSet(args=[self.datafile])
         items = set()
         with job.make_runner() as runner:
             runner.run()
@@ -70,10 +61,9 @@ class AprioriRunner:
 
         new_frequents = set()
         for itemset, count in counts.items():
-            support = count / self.total_transactions
-            if support >= self.min_support:
+            if count >= self.min_support * self.total_transactions:
                 new_frequents.add(itemset)
-                self.global_frequent[itemset] = round(support, 3)
+                self.global_frequent[itemset] = count
 
         self.frequent_itemsets = new_frequents
         return len(new_frequents) > 0
@@ -93,9 +83,10 @@ class AprioriRunner:
             self.k += 1
 
         print("\n=== Frequent Itemsets ===")
-        for itemset, support in sorted(self.global_frequent.items(), key=lambda x: (-len(x[0]), -x[1])):
-            print(f"{tuple(itemset)}\t{support}")
+        for itemset, count in sorted(self.global_frequent.items(), key=lambda x: (len(x[0]), -x[1])):
+            print(f"{' '.join(tuple(itemset))}\t{count}")
 
 if __name__ == "__main__":
-    runner = AprioriRunner("./transaction.txt", min_support=0.5)
+    min_support = float(input("Input min_support value: "))
+    runner = AprioriRunner("bill1", min_support)
     runner.run()
