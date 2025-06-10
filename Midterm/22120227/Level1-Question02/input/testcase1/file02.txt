@@ -1,0 +1,5 @@
+t03	bread
+t03	bread*
+t04	apple
+t03	butter
+t04	apple*

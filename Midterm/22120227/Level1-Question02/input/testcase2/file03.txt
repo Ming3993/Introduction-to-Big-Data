@@ -1,0 +1,5 @@
+t04	green tea*
+t05	water
+t05	water
+t01	coke500ml
+t02	choco123

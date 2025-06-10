@@ -1,0 +1,9 @@
+FoodPrice Pizza 8
+FoodQuantity Pizza 3
+FoodPrice Burger 6
+FoodQuantity Burger 5
+FoodPrice Salad 7
+FoodQuantity Salad 2
+FoodPrice IceCream 9
+FoodPrice Hotdog 5
+FoodQuantity Hotdog 4

@@ -1,0 +1,4 @@
+t06	muesli*
+t03	croissant*
+t04	ice-cream
+t05	coffee-beans*

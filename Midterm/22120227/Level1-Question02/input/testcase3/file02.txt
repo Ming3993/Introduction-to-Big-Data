@@ -1,0 +1,5 @@
+t02	latte*
+t03	croissant
+t03	baguette*
+t04	ice-cream
+t04	ice-cream*

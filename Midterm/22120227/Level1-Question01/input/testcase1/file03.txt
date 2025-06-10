@@ -1,0 +1,4 @@
+t05	apple
+t05	apple
+t05	apple
+t06	watermelon

@@ -1,0 +1,6 @@
+t04	soda
+t04	soda
+t04	tea
+t05	tea
+t05	soda
+t05	soda

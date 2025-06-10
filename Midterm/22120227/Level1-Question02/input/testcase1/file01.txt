@@ -1,0 +1,6 @@
+t01	eggs
+t02	banana
+t01	eggs
+t01	milk*
+t02	banana*
+t02	banana

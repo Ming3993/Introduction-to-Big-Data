@@ -1,0 +1,3 @@
+t03	pepsi330ml*
+t04	coffee2025*
+t05	water*

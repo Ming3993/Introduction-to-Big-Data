@@ -1,0 +1,3 @@
+FoodQuantity SpringRoll 2
+FoodQuantity Pie 1
+FoodPrice Tempura 6

@@ -1,0 +1,3 @@
+FoodQuantity Muffin 0
+FoodQuantity Pancake 3
+FoodPrice Ramen 8

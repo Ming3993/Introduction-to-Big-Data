@@ -1,0 +1,4 @@
+FoodPrice Sushi 12
+FoodPrice Taco 6
+FoodQuantity Sushi 4
+FoodPrice SteamedBun 5

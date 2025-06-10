@@ -1,0 +1,4 @@
+t01	bread*
+t02	milk bottle
+t03	eggs
+t04	milk bottle*

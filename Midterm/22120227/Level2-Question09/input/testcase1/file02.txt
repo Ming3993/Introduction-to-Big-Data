@@ -1,0 +1,9 @@
+FoodPrice Sandwich 4
+FoodQuantity Sandwich 1
+FoodPrice Sushi 10
+FoodQuantity Sushi 6
+FoodPrice Pasta 7
+FoodQuantity Pasta 2
+FoodPrice ChickenWings 11
+FoodQuantity ChickenWings 4
+FoodPrice Cake 9

@@ -1,0 +1,4 @@
+t01	eggs*
+t02	apple
+t03	butter*
+t04	eggs

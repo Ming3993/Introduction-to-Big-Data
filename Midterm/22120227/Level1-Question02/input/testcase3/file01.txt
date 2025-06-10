@@ -1,0 +1,5 @@
+t01	red chili*
+t01	red chili*
+t01	red chili
+t02	coffee
+t02	coffee

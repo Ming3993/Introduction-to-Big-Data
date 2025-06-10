@@ -1,0 +1,5 @@
+t04	ice-cream*
+t05	tea*
+t05	tea
+t05	tea*
+t06	oatmeal

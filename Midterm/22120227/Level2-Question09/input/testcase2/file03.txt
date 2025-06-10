@@ -1,0 +1,3 @@
+FoodQuantity Ramen 6
+FoodPrice ChickenNugget 7
+FoodQuantity ChickenNugget 2

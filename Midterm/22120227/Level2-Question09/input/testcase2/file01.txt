@@ -1,0 +1,4 @@
+FoodPrice Sandwich 4
+FoodQuantity Sandwich 2
+FoodPrice Muffin 6
+FoodPrice Pancake 5

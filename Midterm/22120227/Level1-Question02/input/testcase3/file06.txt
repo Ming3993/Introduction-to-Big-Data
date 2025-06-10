@@ -1,0 +1,3 @@
+t02	apple*
+t03	apple
+t01	milk bottle*

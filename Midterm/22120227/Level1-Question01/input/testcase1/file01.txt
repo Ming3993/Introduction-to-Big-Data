@@ -1,0 +1,6 @@
+t01	milk
+t01	milk
+t01	orange
+t02	banana
+t02	banana
+t02	banana

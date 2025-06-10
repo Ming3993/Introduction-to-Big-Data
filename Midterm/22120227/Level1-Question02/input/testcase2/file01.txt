@@ -1,0 +1,5 @@
+t01	coke500ml
+t01	coke500ml*
+t01	pepsi330ml
+t02	choco123
+t02	choco123*
