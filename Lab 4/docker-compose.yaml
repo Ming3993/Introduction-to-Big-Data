@@ -1,0 +1,45 @@
+services:
+  kafka:
+    image: apache/kafka:latest
+    container_name: broker
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://broker:9092,CONTROLLER://broker:9093,EXTERNAL://broker:9094
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:9092,EXTERNAL://localhost:9094
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@broker:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_NUM_PARTITIONS: 3
+    ports:
+      - "9094:9094"
+    volumes:
+      - kafka-data:/var/lib/kafka/data
+    healthcheck:
+      test: ["CMD", "sh", "-c", "nc -z broker 9093"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  extract-service:
+    build:
+      context: ./src/Extract
+      dockerfile: Dockerfile
+    container_name: extract-service
+    environment:
+      KAFKA_HOST: broker
+      KAFKA_PORT: 9092
+      APP_PORT: 5001
+    depends_on:
+      kafka:
+        condition: service_healthy
+    ports:
+      - "5001:5001"
+
+volumes:
+  kafka-data:
+    driver: local
