@@ -2,7 +2,6 @@ from mrjob.job import MRJob
 
 class GetItemSet(MRJob):
     def mapper(self, _, line):
-        #print("MAPPER LINE:", line)
         try:
             _, items = line.strip().split("\t")
             for item in items.split():
