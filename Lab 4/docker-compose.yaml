@@ -40,6 +40,15 @@ services:
     ports:
       - "5001:5001"
 
+  transform-moving:
+    build:
+      context: ./src/Transform
+      dockerfile: Dockerfile
+    container_name: transform-moving
+    depends_on:
+      kafka:
+        condition: service_healthy
+
 volumes:
   kafka-data:
     driver: local
