@@ -30,7 +30,7 @@ for label, duration in windows:
         stddev("price").alias("std_price")
     ).select(
         col("symbol"),
-        col("window.end").alias("emit_ts"),
+        col("window.start").alias("emit_ts"),
         lit(label).alias("window"),
         col("avg_price"),
         col("std_price")
