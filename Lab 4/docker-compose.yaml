@@ -24,6 +24,13 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
+  
+  base-spark:
+    build:
+      context: ./src/Transform/base
+      dockerfile: Dockerfile
+    image: base-spark:latest
+    entrypoint: ["true"]
 
   extract-service:
     build:
@@ -45,6 +52,19 @@ services:
       context: ./src/Transform/moving
       dockerfile: Dockerfile
     container_name: transform-moving
+    depends_on:
+      kafka:
+        condition: service_healthy
+
+  transform-zscore:
+    build:
+      context: ./src/Transform/zscore
+      dockerfile: Dockerfile
+    container_name: zscore-service
+    ports:
+      - "8890:8888"   # để không đụng port nếu có service Jupyter khác
+    volumes:
+      - ./src/Transform/zscore/src:/app/notebooks  # map folder để edit được từ máy host
     depends_on:
       kafka:
         condition: service_healthy
