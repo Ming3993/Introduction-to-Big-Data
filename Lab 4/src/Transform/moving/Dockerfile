@@ -16,6 +16,8 @@ WORKDIR /app
 COPY --from=downloader /jars /app/jars
 RUN ls /app/jars
 
+ENV KAFKA_BROKER=broker:9092
+
 COPY src/22120210_moving.py ./
 
 CMD ["spark-submit", "--jars", "jars/spark-sql-kafka.jar,jars/kafka-clients.jar,jars/spark-token-provider-kafka.jar,jars/commons-pool.jar", "22120210_moving.py"]

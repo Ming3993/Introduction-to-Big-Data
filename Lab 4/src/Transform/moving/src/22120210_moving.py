@@ -1,13 +1,15 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import from_json, col, window, avg, stddev, to_timestamp, to_json, struct, lit, collect_list
+from pyspark.sql.functions import from_json, col, window, avg, stddev, to_timestamp, to_json, struct, lit, collect_list, date_format, concat_ws
 from pyspark.sql.types import StructType, StringType
+import os
 
 # Schema dữ liệu đầu vào
 spark = SparkSession.builder.appName('BTC-Transform-1').config("spark.sql.streaming.statefulOperator.checkCorrectness.enabled", "false").getOrCreate()
+spark.sparkContext.setLogLevel("ERROR")
 schema = StructType().add("symbol", StringType()).add("price", StringType()).add("timestamp", StringType())
 
 # Đọc dữ liệu từ Kafka topic btc-price
-df_raw = spark.readStream.format('kafka').option("kafka.bootstrap.servers", "broker:9092").option("subscribe", "btc-price").load()
+df_raw = spark.readStream.format('kafka').option("kafka.bootstrap.servers", os.getenv("KAFKA_BROKER")).option("subscribe", "btc-price").load()
 
 # Parse JSON và ép kiểu timestamp
 df_parsed = df_raw.selectExpr("CAST(value AS STRING) as json_str").select(from_json(col("json_str"), schema).alias("data")).select(
@@ -52,7 +54,7 @@ grouped = window_stats.groupBy("symbol", "emit_ts").agg(
 ).select(
     to_json(
         struct(
-            col("emit_ts").cast("string").alias("timestamp"),
+            concat_ws("", date_format(col("emit_ts"), "yyyy-MM-dd'T'HH:mm:ss.SSS"), lit("Z")).alias("timestamp"),
             col("symbol"),
             col("windows")
         )
@@ -60,4 +62,4 @@ grouped = window_stats.groupBy("symbol", "emit_ts").agg(
 )
 
 # Ghi ra Kafka topic btc-price-moving
-grouped.writeStream.format("kafka").option("kafka.bootstrap.servers", "broker:9092").option("topic", "btc-price-moving").option("checkpointLocation", '/tmp/btc-transform-checkpoint').outputMode("update").start().awaitTermination()
+grouped.writeStream.format("kafka").option("kafka.bootstrap.servers", os.getenv("KAFKA_BROKER")).option("topic", "btc-price-moving").option("checkpointLocation", '/tmp/btc-transform-checkpoint').outputMode("update").start().awaitTermination()
