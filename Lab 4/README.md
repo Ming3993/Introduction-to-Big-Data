@@ -1,5 +1,5 @@
 # How to run Kafka
-To run the application:
+To run the application, navigate to `src/` directory and call:
 ```bash
 docker compose up
 ```
