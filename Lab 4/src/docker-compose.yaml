@@ -24,17 +24,10 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
-  
-  base-spark:
-    build:
-      context: ./src/Transform/base
-      dockerfile: Dockerfile
-    image: base-spark:latest
-    entrypoint: ["true"]
 
   extract-service:
     build:
-      context: ./src/Extract
+      context: ./Extract
       dockerfile: Dockerfile
     container_name: extract-service
     environment:
@@ -49,7 +42,7 @@ services:
 
   transform-moving:
     build:
-      context: ./src/Transform/moving
+      context: ./Transform/moving
       dockerfile: Dockerfile
     container_name: transform-moving
     depends_on:
@@ -58,7 +51,7 @@ services:
 
   transform-zscore:
     build:
-      context: ./src/Transform/zscore
+      context: ./Transform/zscore
       dockerfile: Dockerfile
     container_name: zscore-service
     ports:
