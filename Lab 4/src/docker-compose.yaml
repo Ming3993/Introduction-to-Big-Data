@@ -49,6 +49,25 @@ services:
       kafka:
         condition: service_healthy
 
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
+
+  load-stage:
+    build:
+      context: ./src/Load
+      dockerfile: Dockerfile
+    container_name: load-service
+    depends_on:
+      - kafka
+      - mongodb
+    environment:
+      - SPARK_MODE=client
+
   transform-zscore:
     build:
       context: ./Transform/zscore
@@ -64,4 +83,6 @@ services:
 
 volumes:
   kafka-data:
+    driver: local
+  mongodb-data:
     driver: local
