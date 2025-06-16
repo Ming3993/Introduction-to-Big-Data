@@ -3,6 +3,8 @@ FROM base-spark:latest
 # Tạo thư mục workdir rõ ràng hơn (tùy chọn)
 WORKDIR /app/moving
 
+ENV KAFKA_BROKER=broker:9092
+
 # Copy file từ thư mục con `src` trong context build
 COPY src/22120210_moving.py .
 

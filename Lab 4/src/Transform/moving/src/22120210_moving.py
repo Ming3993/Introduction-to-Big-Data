@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import from_json, col, window, avg, stddev, to_timestamp, to_json, struct, lit, collect_list, date_format, concat_ws, when
+from pyspark.sql.functions import from_json, col, window, avg, stddev, to_timestamp, to_json, struct, lit, collect_list, date_format, concat_ws
 from pyspark.sql.types import StructType, StringType
 import os
 
@@ -15,7 +15,7 @@ df_raw = spark.readStream.format('kafka').option("kafka.bootstrap.servers", os.g
 df_parsed = df_raw.selectExpr("CAST(value AS STRING) as json_str").select(from_json(col("json_str"), schema).alias("data")).select(
     col("data.symbol"),
     col("data.price").cast("double").alias("price"),
-    to_timestamp(col("data.timestamp"), "yyyyMMdd'T'HHmmss.SSS'Z'").alias("ts")
+    to_timestamp(col("data.timestamp"), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").alias("ts")
 )
 
 # Danh sách khung thời gian cần tính moving
@@ -54,7 +54,7 @@ grouped = window_stats.groupBy("symbol", "emit_ts").agg(
 ).select(
     to_json(
         struct(
-            concat_ws("", date_format(col("emit_ts"), "yyyy-MM-dd'T'HH:mm:ss.SSS"), lit("Z")).alias("timestamp"),
+            concat_ws("", date_format(col("emit_ts"), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")).alias("timestamp"),
             col("symbol"),
             col("windows")
         )

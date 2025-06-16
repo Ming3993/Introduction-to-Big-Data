@@ -31,7 +31,7 @@ def get_btcusdt_value():
             # Get timestamp
             now = pendulum.now("UTC")
             rounded_now = round_datetime_subseconds(now, interval_ms=DATA_CRAWL_INTERVAL * 1000)
-            rounded_now_iso = rounded_now.format("YYYYMMDD[T]HHmmss.SSS") + "Z"
+            rounded_now_iso = rounded_now.format("YYYY-MM-DD[T]HH:mm:ss.SSS") + "Z"
 
             # Add timestamp to response
             response_json = response.json()
