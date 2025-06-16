@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import from_json, col, window, avg, stddev, to_timestamp, to_json, struct, lit, collect_list, date_format, concat_ws
+from pyspark.sql.functions import from_json, col, window, avg, stddev, to_timestamp, to_json, struct, lit, collect_list, date_format, concat_ws, when
 from pyspark.sql.types import StructType, StringType
 import os
 
@@ -35,7 +35,7 @@ for label, duration in windows:
         col("window.start").alias("emit_ts"),
         lit(label).alias("window"),
         col("avg_price"),
-        col("std_price")
+        when(col("std_price").isNull(), lit(0.0)).otherwise(col("std_price")).alias("std_price")
     )
     if window_stats is None:
         window_stats = df_win
