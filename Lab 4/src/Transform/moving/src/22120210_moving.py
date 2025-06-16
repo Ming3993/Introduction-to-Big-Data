@@ -35,7 +35,7 @@ for label, duration in windows:
         col("window.start").alias("emit_ts"),
         lit(label).alias("window"),
         col("avg_price"),
-        col("std_price")
+        when(col("std_price").isNull(), lit(0.0)).otherwise(col("std_price")).alias("std_price")
     )
     if window_stats is None:
         window_stats = df_win
