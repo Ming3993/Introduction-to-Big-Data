@@ -59,7 +59,7 @@ services:
 
   load-stage:
     build:
-      context: ./src/Load
+      context: ./Load
       dockerfile: Dockerfile
     container_name: load-service
     depends_on:
@@ -76,7 +76,7 @@ services:
     ports:
       - "8890:8888"   # để không đụng port nếu có service Jupyter khác
     volumes:
-      - ./src/Transform/zscore/src:/app/notebooks  # map folder để edit được từ máy host
+      - ./Transform/zscore/src:/app/notebooks  # map folder để edit được từ máy host
     depends_on:
       kafka:
         condition: service_healthy

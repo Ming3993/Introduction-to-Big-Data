@@ -15,7 +15,7 @@ df_raw = spark.readStream.format('kafka').option("kafka.bootstrap.servers", os.g
 df_parsed = df_raw.selectExpr("CAST(value AS STRING) as json_str").select(from_json(col("json_str"), schema).alias("data")).select(
     col("data.symbol"),
     col("data.price").cast("double").alias("price"),
-    to_timestamp(col("data.timestamp"), "yyyyMMdd'T'HHmmss.SSS'Z'").alias("ts")
+    to_timestamp(col("data.timestamp"), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").alias("ts")
 )
 
 # Danh sách khung thời gian cần tính moving
