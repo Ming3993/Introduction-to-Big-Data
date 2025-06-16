@@ -27,7 +27,7 @@ services:
 
   extract-service:
     build:
-      context: ./src/Extract
+      context: ./Extract
       dockerfile: Dockerfile
     container_name: extract-service
     environment:
@@ -42,7 +42,7 @@ services:
 
   transform-moving:
     build:
-      context: ./src/Transform/moving
+      context: ./Transform/moving
       dockerfile: Dockerfile
     container_name: transform-moving
     depends_on:
@@ -67,6 +67,19 @@ services:
       - mongodb
     environment:
       - SPARK_MODE=client
+
+  transform-zscore:
+    build:
+      context: ./Transform/zscore
+      dockerfile: Dockerfile
+    container_name: zscore-service
+    ports:
+      - "8890:8888"   # để không đụng port nếu có service Jupyter khác
+    volumes:
+      - ./src/Transform/zscore/src:/app/notebooks  # map folder để edit được từ máy host
+    depends_on:
+      kafka:
+        condition: service_healthy
 
 volumes:
   kafka-data:
