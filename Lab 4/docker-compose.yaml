@@ -42,7 +42,7 @@ services:
 
   transform-moving:
     build:
-      context: ./src/Transform
+      context: ./src/Transform/moving
       dockerfile: Dockerfile
     container_name: transform-moving
     depends_on:
