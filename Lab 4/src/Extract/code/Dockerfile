@@ -2,7 +2,7 @@
 FROM python:3.11-slim AS builder
 
 WORKDIR /install
-COPY requirements.txt .
+COPY code/requirements.txt .
 RUN pip install --upgrade pip && \
     pip install --target=/install/target --no-cache-dir -r requirements.txt
 
@@ -24,7 +24,7 @@ ENV PYTHONPATH="${PYTHONPATH}:/usr/local"
 
 COPY --from=builder /install/target /usr/local
 COPY 22120210.py .
-COPY .env .
+COPY code/.env .
 
 EXPOSE ${APP_PORT:-5000}
 

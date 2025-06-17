@@ -1,6 +1,7 @@
 # How to run Kafka
 To run the application, navigate to `src/` directory and call:
 ```bash
+chmod u+x ./run-application.sh
 ./run-application.sh
 ```
 Kafka UI can be accessed via `localhost:8082`. 

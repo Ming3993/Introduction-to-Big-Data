@@ -28,7 +28,7 @@ services:
   extract-service:
     build:
       context: ./Extract
-      dockerfile: Dockerfile
+      dockerfile: code/Dockerfile
     container_name: extract-service
     environment:
       KAFKA_HOST: broker
@@ -43,7 +43,7 @@ services:
   transform-moving:
     build:
       context: ./Transform
-      dockerfile: Dockerfile_moving
+      dockerfile: code/Dockerfile_moving
     container_name: transform-moving
     depends_on:
       kafka:
@@ -65,7 +65,7 @@ services:
   load-service:
     build:
       context: ./Load
-      dockerfile: Dockerfile
+      dockerfile: code/Dockerfile
     container_name: load-service
     depends_on:
       kafka:
@@ -78,7 +78,7 @@ services:
   transform-zscore:
     build:
       context: ./Transform
-      dockerfile: Dockerfile_zscore
+      dockerfile: code/Dockerfile_zscore
     container_name: zscore-service
     ports:
       - "8890:8888"   # để không đụng port nếu có service Jupyter khác
@@ -91,7 +91,7 @@ services:
   bonus-service:
     build:
       context: ./Bonus
-      dockerfile: Dockerfile
+      dockerfile: code/Dockerfile
     container_name: bonus-service
     depends_on:
       kafka:

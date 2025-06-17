@@ -72,7 +72,8 @@ producer = KafkaProducer(
 # Send to Kafka
 def send_to_kafka(json_value):
     try:
-        producer.send(KAFKA_TOPIC, key="btcusdt", value=json_value)
+        symbol = json_value.get("symbol", "UNKNOWN")
+        producer.send(KAFKA_TOPIC, key=symbol, value=json_value)
     except Exception as e:
         print(f"Kafka send failed: {e}")
         raise e
