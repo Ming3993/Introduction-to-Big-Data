@@ -77,8 +77,8 @@ services:
 
   transform-zscore:
     build:
-      context: ./Transform/zscore
-      dockerfile: code/Dockerfile
+      context: ./Transform
+      dockerfile: Dockerfile_zscore
     container_name: zscore-service
     ports:
       - "8890:8888"   # để không đụng port nếu có service Jupyter khác
