@@ -1,1 +1,1 @@
-docker build -t base-spark:latest Transform/base && docker compose build && docker compose up 
+docker build -t base-spark:latest Image/spark-base && docker compose build && docker compose up 
