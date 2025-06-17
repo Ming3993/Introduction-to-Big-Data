@@ -30,9 +30,6 @@ After completing the execution of 22120210_zscore.ipynb, follow these steps to r
 
 - Navigate to the Topics tab and wait until the topic btc-price-zscore is created.
 
-![Kafka topic](btc-price-zscore.jpg)
-
-
 2. Start the Load service:
 
 - Open a terminal.
