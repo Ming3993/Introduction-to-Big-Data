@@ -10,3 +10,12 @@ To shut down the application:
 docker compose down
 ```
 If you use Ctrl+C or `docker compose stop` to stop, it may cause errors. You may try to use the above command.
+
+# How to run 22120210_zscore.ipynb
+To facilitate debugging, our team has executed the z-score computation using a notebook file. The notebook can be accessed for execution and editing via `localhost:8890`. Please note the following when running the code:
+
+1. The **\[Debug section]** is intended for inspecting output during development. Do **not** run these cells if your goal is simply to publish the z-score results to MongoDB.
+
+2. In the last cell of the notebook, the code will throw an error if required Kafka topics such as `btc-price` and `btc-price-moving` do not yet exist. To check whether these topics are available, open the Kafka UI mentioned earlier and go to the **Topics** section (see illustration below).
+
+![Kafka topic](kafka-topic.jpeg)
