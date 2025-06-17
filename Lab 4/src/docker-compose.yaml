@@ -62,7 +62,7 @@ services:
       timeout: 5s
       retries: 10
 
-  load-stage:
+  load-service:
     build:
       context: ./Load
       dockerfile: Dockerfile
@@ -71,9 +71,9 @@ services:
       kafka:
         condition: service_healthy
       mongodb:
-        condition: service_healthy
-    environment:
-      - SPARK_MODE=client
+        condition: service_started
+    volumes:
+      - spark-checkpoints:/tmp
 
   transform-zscore:
     build:
@@ -83,7 +83,7 @@ services:
     ports:
       - "8890:8888"   # để không đụng port nếu có service Jupyter khác
     volumes:
-      - ./Transform/zscore:/app/notebooks  # map folder để edit được từ máy host
+      - ./Transform:/app/notebooks  # map folder để edit được từ máy host
     depends_on:
       kafka:
         condition: service_healthy
@@ -113,4 +113,6 @@ volumes:
   kafka-data:
     driver: local
   mongodb-data:
+    driver: local
+  spark-checkpoints:
     driver: local
