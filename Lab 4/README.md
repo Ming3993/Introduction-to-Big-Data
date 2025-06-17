@@ -1,7 +1,6 @@
 # How to run Kafka
 To run the application, navigate to `src/` directory and call:
 ```bash
-chmod u+x ./run-application.sh
 ./run-application.sh
 ```
 Kafka UI can be accessed via `localhost:8082`. 
@@ -21,3 +20,24 @@ To facilitate debugging, our team has executed the z-score computation using a n
 3. In the last cell of the notebook, the code will throw an error if required Kafka topics such as `btc-price` and `btc-price-moving` do not yet exist. To check whether these topics are available, open the Kafka UI mentioned earlier and go to the **Topics** section (see illustration below).
 
 ![Kafka topic](kafka-topic.jpeg)
+
+# How to run Load
+After completing the execution of 22120210_zscore.ipynb, follow these steps to run the Load phase:
+
+1. Check if the Kafka topic btc-price-zscore is available:
+
+- Open a browser and go to http://localhost:8082.
+
+- Navigate to the Topics tab and wait until the topic btc-price-zscore is created.
+
+2. Start the Load service:
+
+- Open a terminal.
+
+- Navigate to the directory containing the docker-compose.yaml file.
+
+- Run the following command:
+
+```bash
+docker compose up --build load-service
+```
