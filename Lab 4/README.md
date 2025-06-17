@@ -3,7 +3,7 @@ To run the application, navigate to `src/` directory and call:
 ```bash
 ./run-application.sh
 ```
-Kafka can be accessed via `localhost:9094`. Extract server can be accessed via `localhost:5001`.
+Kafka UI can be accessed via `localhost:8082`. 
 
 To shut down the application:
 ```bash

@@ -15,6 +15,7 @@ ENV PYTHONUNBUFFERED=1
 RUN apt-get update && apt-get install -y \
     ca-certificates \
     curl \
+    tini \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -22,8 +23,10 @@ WORKDIR /app
 ENV PYTHONPATH="${PYTHONPATH}:/usr/local"
 
 COPY --from=builder /install/target /usr/local
-COPY src/ .
+COPY 22120210.py .
+COPY .env .
 
 EXPOSE ${APP_PORT:-5000}
 
-CMD ["python", "main.py"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
+CMD ["python", "22120210.py"]
