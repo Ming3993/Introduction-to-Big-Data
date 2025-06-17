@@ -83,7 +83,7 @@ services:
     ports:
       - "8890:8888"   # để không đụng port nếu có service Jupyter khác
     volumes:
-      - ./Transform/zscore:/app/notebooks  # map folder để edit được từ máy host
+      - ./Transform:/app/notebooks  # map folder để edit được từ máy host
     depends_on:
       kafka:
         condition: service_healthy
