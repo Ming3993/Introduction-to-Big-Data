@@ -42,8 +42,8 @@ services:
 
   transform-moving:
     build:
-      context: ./Transform/moving
-      dockerfile: Dockerfile
+      context: ./Transform
+      dockerfile: Dockerfile_moving
     container_name: transform-moving
     depends_on:
       kafka:
@@ -56,6 +56,11 @@ services:
       - "27017:27017"
     volumes:
       - mongodb-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]      
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
   load-stage:
     build:
@@ -63,8 +68,10 @@ services:
       dockerfile: Dockerfile
     container_name: load-service
     depends_on:
-      - kafka
-      - mongodb
+      kafka:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
     environment:
       - SPARK_MODE=client
 
@@ -86,6 +93,18 @@ services:
       context: ./Bonus
       dockerfile: Dockerfile
     container_name: bonus-service
+    depends_on:
+      kafka:
+        condition: service_healthy
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=broker:9092
+    ports:
+      - "8082:8080" 
     depends_on:
       kafka:
         condition: service_healthy
