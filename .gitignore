@@ -1,4 +1,8 @@
 **/__pycache__/
 Lab 3/src/Classification/Low_Level/classification_results/
 Midterm/22120405/**/output/
-Lab 4/src/**/.ipynb_checkpoints/ 
+Lab 4/src/**/.ipynb_checkpoints/
+.DS_Store
+**/.DS_Store
+commit_msg.txt
+ 
